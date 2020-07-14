@@ -19,7 +19,7 @@ auths.userAuth = (req, res, next) => {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
       if (token) {
-        const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         req.userData = decodedToken;
         next();
       } else {
@@ -38,7 +38,7 @@ auths.adminAuth = async (req, res, next) => {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(' ')[1];
       if (token) {
-        const decodedToken = jwt.verify(token, process.env.JWT_KEY);
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         req.userData = decodedToken;
         if (decodedToken.userType != 'admin') {
           throw new Error();

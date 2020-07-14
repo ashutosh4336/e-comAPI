@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/check-auth');
+const { userAuth } = require('../middleware/auth');
+// const { userAuth, adminAuth } = require('../middleware/check-auth');
+// const { getAllOrders, saveOrders } = require('../controllers/orders');
 
-const OrdersController = require('../controllers/orders');
+const { getAllProducts } = require('../controllers/products');
 
-router.get('/', auth.userAuth, OrdersController.getAllOrders);
-router.post('/', auth.userAuth, OrdersController.saveOrders);
+router.route('/').get(userAuth, getAllProducts);
 
 module.exports = router;

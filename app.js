@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const colors = require('colors');
 const path = require('path');
 const cors = require('cors');
@@ -29,11 +30,11 @@ app.use(cors());
 app.use(express.json());
 
 // Cookie parser middleware
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // Dev Logging Middleware
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
-// const errorHandler = require('./middleware/error');
+const errorHandler = require('./middleware/error');
 
 // File Upload
 
@@ -44,5 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
+
+app.use(errorHandler);
 
 module.exports = app;

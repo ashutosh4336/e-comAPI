@@ -20,19 +20,19 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // read JSON files
-const bootcamps = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/bootcamps.json`, 'utf-8')
+const products = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/products.json`, 'utf-8')
 );
 // read JSON files
-const courses = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8')
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, 'utf-8')
 );
 
 // Import into DB
 const importData = async () => {
   try {
-    await Bootcamp.create(bootcamps);
-    await Course.create(courses);
+    await Product.create(products);
+    await User.create(users);
 
     console.log('Data Imported...'.green.inverse);
     process.exit();
@@ -44,8 +44,8 @@ const importData = async () => {
 // Delete a data
 const deleteData = async () => {
   try {
-    await Bootcamp.deleteMany();
-    await Course.deleteMany();
+    await Product.deleteMany();
+    await User.deleteMany();
 
     console.log('Data Destroyed...'.red.inverse);
     process.exit();

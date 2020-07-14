@@ -1,0 +1,54 @@
+[
+  {
+    "_id": "5d713995b721c3bb38c1f5d8",
+    "firstName": "Ashutosh",
+    "lastName": "Panda",
+    "email": "ashutosh.panda@mail.vinove.com",
+    "password": "123456789",
+    "role": "user"
+  },
+
+  {
+    "_id": "5d713995b721c3bb38c1f5d9",
+    "firstName": "Himashu",
+    "lastName": "Sangatani",
+    "email": "himashu.sangatani@mail.vinove.com",
+    "password": "123456789",
+    "role": "user"
+  },
+
+  {
+    "_id": "5d713995b721c3bb38c1f4d8",
+    "firstName": "Rahul",
+    "lastName": "Yadav",
+    "email": "rahul.yadav@mail.vinove.com",
+    "password": "123456789",
+    "role": "user"
+  },
+
+  {
+    "_id": "5d713995b721c3bb38c1f4d1",
+    "firstName": "Sonam",
+    "lastName": "Chaubey",
+    "email": "sonam.jabalpur@mail.vinove.com",
+    "password": "123456789",
+    "role": "user"
+  },
+
+  {
+    "_id": "5d713995b721c3bb38c1f4d6",
+    "firstName": "Nitish",
+    "lastName": "Kumar",
+    "email": "nitish.kumar@mail.vinove.com",
+    "password": "123456789",
+    "role": "user"
+  },
+  {
+    "_id": "5d713995b721c3bb38c1f4d7",
+    "firstName": "admin",
+    "lastName": "vinove",
+    "email": "admin@vinove.com",
+    "password": "123456789",
+    "role": "admin"
+  }
+]
