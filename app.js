@@ -5,9 +5,12 @@ const cookieParser = require('cookie-parser');
 const fileupload = require('express-fileupload');
 const colors = require('colors');
 const path = require('path');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const hpp = require('hpp');
 const fs = require('fs');
 const Razorpay = require('razorpay');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // Load ENV variable
 dotenv.config({ path: './config/config.env' });
@@ -26,6 +29,23 @@ const { adminAuth } = require('./middleware/check-auth');
 
 const app = express();
 
+// CORS
+app.use(cors());
+
+// Sanitize Data
+app.use(mongoSanitize());
+
+// Prevent HTTP Parameter Poluution Attack
+app.use(hpp());
+
+// Rate Limiting per 10 min
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 80, // limit each IP to 100 requests per windowMs
+});
+
+app.use(limiter);
+
 const razorPay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -39,9 +59,6 @@ app.post('/razorpay', (req, res) => {
     payment_capture,
   });
 });
-
-// CORS
-app.use(cors());
 
 // Body Parser
 app.use(express.json());
