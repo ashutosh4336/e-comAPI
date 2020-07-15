@@ -5,6 +5,7 @@
     "lastName": "Panda",
     "email": "ashutosh.panda@mail.vinove.com",
     "password": "123456789",
+    "purchase": ["5d713995b721c3bb38c1f5d4", "5d713995b721c3bb38c1f5d3"],
     "role": "user"
   },
 
@@ -14,6 +15,7 @@
     "lastName": "Sangatani",
     "email": "himashu.sangatani@mail.vinove.com",
     "password": "123456789",
+    "purchase": ["5d713995b721c3bb38c1f5d1"],
     "role": "user"
   },
 
@@ -23,6 +25,7 @@
     "lastName": "Yadav",
     "email": "rahul.yadav@mail.vinove.com",
     "password": "123456789",
+    "purchase": ["5d713995b721c3bb38c1f5d0"],
     "role": "user"
   },
 
@@ -32,6 +35,7 @@
     "lastName": "Chaubey",
     "email": "sonam.jabalpur@mail.vinove.com",
     "password": "123456789",
+    "purchase": [],
     "role": "user"
   },
 
@@ -41,6 +45,7 @@
     "lastName": "Kumar",
     "email": "nitish.kumar@mail.vinove.com",
     "password": "123456789",
+    "purchase": [],
     "role": "user"
   },
   {
@@ -49,6 +54,7 @@
     "lastName": "vinove",
     "email": "admin@vinove.com",
     "password": "123456789",
+    "purchase": ["5d713995b721c3bb38c1f5d4"],
     "role": "admin"
   }
 ]

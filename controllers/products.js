@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const path = require('path');
 const Product = require('../models/Product');
 const User = require('../models/User');
 const ErrorResponse = require('../utils/errorResponse');
@@ -11,8 +12,7 @@ exports.getAllProducts = async (req, res, next) => {
     let allProduct = await Product.find();
     if (!allProduct) {
       return next(
-        new ErrorResponse(`No Course with the ID of ${req.params.id}`),
-        404
+        new ErrorResponse(`No Course with the ID of ${req.params.id}`, 404)
       );
     }
     res.status(200).json({
@@ -20,7 +20,9 @@ exports.getAllProducts = async (req, res, next) => {
       msg: allProduct,
     });
   } catch (err) {
-    next(error);
+    return next(
+      new ErrorResponse(`No Course with the ID of ${req.params.id}`, 404)
+    );
   }
 };
 
@@ -42,33 +44,79 @@ exports.createOneProduct = async (req, res, next) => {
       data: createdProduct,
     });
   } catch (err) {
-    next(err);
+    return next(
+      new ErrorResponse(`No Course with the ID of ${req.params.id}`, 404)
+    );
   }
 };
 
-// @desc        list Purchased Products from a User
-// @route       Get /api/produscts
+// @desc        Get a Single Product Details
+// @route       Get /api/produscts/:id
 // @access      Private
-
-exports.listAllProductFromUser = async (req, res, next) => {
+exports.getSingleProdDeatil = async (req, res, next) => {
   try {
-    const getCurUser = await User.findById(req.params.id);
-    // console.log(getCurUser.purchase);
-    // TODO:
-    if (!getCurUser) {
-      return next(
-        new ErrorResponse(`No User with the ID of ${req.params.id}`),
-        404
-      );
-    }
+    const product = await Product.findById(req.params.id);
+    console.log(product);
     res.status(200).json({
       success: true,
-      data: getCurUser.purchase,
+      msg: product,
     });
   } catch (err) {
     return next(
-      new ErrorResponse(`No User with the ID of ${req.params.id}`),
-      404
+      new ErrorResponse(`No product with the ID of ${req.params.id}`, 404)
     );
   }
+};
+
+// @desc        Upload Photo
+// @route       PUT api/products/:id/photo
+// @access      Private
+exports.productPhotoUpload = async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(
+      new ErrorResponse(`Product Not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  if (!req.files) {
+    return next(new ErrorResponse(`Please Upload a file`, 400));
+  }
+
+  // console.log(req.files);
+  const file = req.files.file;
+
+  // makesure image is a photo
+  if (!file.mimetype.startsWith('image')) {
+    return next(new ErrorResponse(`Please Upload a Image file`, 400));
+  }
+
+  // Check file size
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `Please Upload an Image less than ${process.env.MAX_FILE_UPLOAD}`,
+        400
+      )
+    );
+  }
+
+  // craete custom file name
+  file.name = `photo_${file.md5}${path.parse(file.name).ext}`;
+  // console.log(file.name);
+
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+    if (err) {
+      console.error(err);
+      return next(new ErrorResponse(`Something went wrong`, 500));
+    }
+
+    await Product.findByIdAndUpdate(req.params.id, { photo: file.name });
+
+    res.status(200).json({
+      success: true,
+      data: file.name,
+    });
+  });
 };

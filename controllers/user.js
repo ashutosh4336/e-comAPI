@@ -137,3 +137,20 @@ exports.getMe = async (req, res, next) => {
     return next(new ErrorResponse(`${err.message}`, 500));
   }
 };
+// @desc        Log User Out / Clear cookie
+// @route       GET /api/users/logout
+// @access      Private
+exports.logOut = async (req, res, next) => {
+  try {
+    res.cookie('token', 'none', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+    res.status(200).json({
+      success: true,
+      msg: 'User logged Out',
+    });
+  } catch (err) {
+    return next(new ErrorResponse(`${err.message}`, 500));
+  }
+};

@@ -10,19 +10,24 @@
     "price": "37000"
   },
   {
-    "_id": "5d713995b721c3bb38c1f5d2",
-    "name": "Lg Monitor 55inch",
-    "price": "340000"
-  },
-  {
     "_id": "5d713995b721c3bb38c1f5d3",
     "name": "Mac Pro",
     "price": "3700000"
   },
   {
+    "_id": "5d713995b721c3bb38c1f5d2",
+    "name": "Lg Monitor 55inch",
+    "price": "340000"
+  },
+  {
     "_id": "5d713995b721c3bb38c1f5d4",
     "name": "MacBook Pro",
     "price": "180000"
+  },
+  {
+    "_id": "5d713995b721c3bb38c2f5d1",
+    "name": "Mac Mini",
+    "price": "150000"
   },
   {
     "_id": "5d713995b721c3bb38c1f5d5",

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const checkAuths = require('../middleware/check-auth');
 
 const { userAuth, authorize } = require('../middleware/auth');
 
@@ -10,12 +9,13 @@ const {
   createUserByAdmin,
   loginUserAndAdmin,
   getMe,
+  logOut,
 } = require('../controllers/user');
 
-// router.get('/is-admin', checkAuths.userAuth, UserController.isAdmin);
-router.get('/', authorize, getAllUser);
+router.get('/', userAuth, authorize('admin'), getAllUser);
 router.get('/me', userAuth, getMe);
-router.get('/:id', authorize, getSingleUser);
+router.get('/logout', logOut);
+router.get('/:id', userAuth, authorize('admin'), getSingleUser);
 router.post('/', userAuth, authorize('admin'), createUserByAdmin);
 router.post('/login', loginUserAndAdmin);
 

@@ -14,7 +14,10 @@ const ProductSchema = new mongoose.Schema({
     required: [true, 'Please provide the Price of the Product'],
   },
 
-  productImage: { type: String },
+  photo: {
+    type: String,
+    default: 'no-photo.jpg',
+  },
 
   createdAt: {
     type: Date,
